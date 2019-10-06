@@ -1,15 +1,23 @@
 FROM ubuntu:18.04
 WORKDIR /data
-#install Java
+
+#Call this before you can install anything
 RUN apt-get update
+
+#install Java
 RUN apt-get -y install default-jdk
+
+#install needed tools
+RUN apt-get -y install wget
+RUN apt-get -y install vim
+
 #install scala
 RUN apt-get remove scala-library scala
-RUN apt-get -y install wget
 RUN wget http://scala-lang.org/files/archive/scala-2.12.1.deb
 RUN dpkg -i scala-2.12.1.deb
 RUN apt-get update
 RUN apt-get install scala
+
 #install sbt
 RUN echo "deb https://dl.bintray.com/sbt/debian /" >> /etc/apt/sources.list.d/sbt.list
 RUN apt-get -y install gnupg2
