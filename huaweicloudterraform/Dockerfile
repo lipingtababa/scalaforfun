@@ -25,7 +25,9 @@ RUN mv terraform /usr/local/go/bin
 
 #install huaweicloudstack provider
 RUN git clone https://github.com/huaweicloud/terraform-provider-huaweicloudstack ~/go/src/github.com/terraform-providers/terraform-provider-huaweicloudstack
-RUN cd ~/go/src/github.com/terraform-providers/terraform-provider-huaweicloudstack/
+#cd doesn't change the work directory and you have to use WORKDIR, and I spent half an hour on this stupid Dockerfile feature
+#RUN cd ~/go/src/github.com/terraform-providers/terraform-provider-huaweicloudstack/ 
+WORKDIR  ~/go/src/github.com/terraform-providers/terraform-provider-huaweicloudstack/
 RUN make build
 RUN export PATH=$PATH:~/go/bin
 RUN echo 'PATH=$PATH:~/go/bin' >>~/.bashrc
